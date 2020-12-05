@@ -1,0 +1,227 @@
+=media($from, $to)
+  @if $from == max or $from == min
+    @media only screen and (#{$from}-width: $to)
+      @content
+  @else
+    @media only screen and (max-width: $from) and (min-width: $to)
+      @content
+
+// ===================_Desktop_====================//
+
+$desktoplg: 1201px
+$desktopMax: 1200px
+$desktopMin: 992px
+
+=desktop($from: $desktopMax, $to: $desktopMin)
+  @if $from == max
+    +media($from, $desktopMax)
+      @content
+  @else if $from == min
+    +media($from, $desktoplg)
+      @content
+  @else
+    +media($from, $to)
+      @content
+
+//===================_Tablet_====================//
+
+$tabletMax: 991px
+$tabletMin: 768px
+
+=tablet($from: $tabletMax, $to: $tabletMin)
+  @if $from == max
+    +media($from, $tabletMax)
+      @content
+  @else if $from == min
+    +media($from, $desktopMin)
+      @content
+  @else
+    +media($from, $to)
+      @content
+
+//===================__tabMd__====================//
+
+$tabMdMax: 767px
+$tabMdMin: 576px
+
+=tabMd($from: $tabMdMax, $to: $tabMdMin)
+  @if $from == max
+    +media($from, $tabMdMax)
+      @content
+  @else if $from == min
+    +media($from, $tabletMin)
+      @content
+  @else
+    +media($from, $to)
+      @content
+
+//===================__Mobile__====================//
+
+$mobileMax: 575px
+
+=mobile($from: max)
+  @if $from == max
+    +media($from, $mobileMax)
+      @content
+  @else if $from == min
+    +media($from, $tabMdMin)
+      @content
+
+//===================__Font__====================//
+
+=font($size, $weight, $height)
+  font-size: $size
+  font-weight: $weight
+  line-height: $height
+
+//===================__Width & Height__====================//
+
+=size($width, $height: $width)
+  width: $width
+  height: $height
+
+//====================__triangle__====================//
+
+=triangle($direction, $width, $height: $width, $color)
+  &:before
+    content: ''
+    display: block
+    position: absolute
+    +size(0)
+    @if ($direction == 'up')
+      border-bottom: $width solid $color
+      border-left: 1/2*$height solid transparent
+      border-right: 1/2*$height solid transparent
+    @else if ($direction == 'down')
+      border-top: $width solid $color
+      border-left: 1/2*$height solid transparent
+      border-right: 1/2*$height solid transparent
+    @else if ($direction == 'left')
+      border-right: $width solid $color
+      border-top: 1/2*$height solid transparent
+      border-bottom: 1/2*$height solid transparent
+    @else if ($direction == 'right')
+      border-left: $width solid $color
+      border-top: 1/2*$height solid transparent
+      border-bottom: 1/2*$height solid transparent
+    @content
+
+//===================__Flexbox__====================//
+
+=flex($flex)
+  display: flex
+
+  @if $flex == 'center'
+    justify-content: center
+    align-items: center
+
+  @else if $flex == 'between'
+    justify-content: space-between
+
+  @else if $flex == 'between-center'
+    justify-content: space-between
+    align-items: center
+
+  @else if $flex == 'between-wrap'
+    justify-content: space-between
+    flex-wrap: wrap
+
+  @else if $flex == 'between-center-wrap'
+    justify-content: space-between
+    align-items: center
+    flex-wrap: wrap
+
+  @else if $flex == 'around'
+    justify-content: space-around
+
+//===================__Pseudo elements__====================//
+
+=before($bg, $width, $height: $width)
+  &::before
+    content: ''
+    display: block
+    position: absolute
+    +size($width, $height)
+    background: $bg
+    @content
+    
+
+=after($bg, $width, $height: $width)
+  &::after
+    content: ''
+    display: block
+    position: absolute
+    +size($width, $height)
+    background: $bg
+    @content
+
+=beforeAfter($bg, $width, $height: $width)
+  &::before,
+  &::after
+    content: ''
+    display: block
+    position: absolute
+    +size($width, $height)
+    background: $bg
+    @content
+
+=pseudoBg($bg)
+  &::before
+    top: 0
+    left: 0
+    z-index: 0
+    content: ''
+    display: block
+    position: absolute
+    +size(100%)
+    background: $bg
+    @content
+
+//===================__position__====================//
+
+=centerY
+  top: 50%
+  transform: translateY(-50%)
+
+=centerX
+  left: 50%
+  transform: translateX(-50%)
+
+=center
+  top: 50%
+  left: 50%
+  transform: translate(-50%,-50%)
+
+//===================__hover__====================//
+
+=hover
+  &:hover
+    @content
+
+//===================__Placeholder__====================//
+
+=placeholder
+  &.placeholder
+    @content
+  &:placeholder
+    @content
+  &:-moz-placeholder
+    @content
+  &::-moz-placeholder
+    @content
+  &:-ms-input-placeholder
+    @content
+  &::-webkit-input-placeholder
+    @content
+
+//===================__Keyframes__====================//
+
+=keyframes($name)
+  @-webkit-keyframes #{$name}
+    @content
+  @-moz-keyframes #{$name}
+    @content
+  @-ms-keyframes #{$name}
+    @content
+  @keyframes #{$name}
+    @content

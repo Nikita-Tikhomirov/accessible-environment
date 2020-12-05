@@ -1,0 +1,26 @@
+include mixins/mixins
+include ../blocks/blocks
+include ../sections/sections
++blocks
++sections
+
+//--------------------__content__--------------------//
+
+block vars
+
+- const lang = 'ru'
+
+doctype html
+html(lang=lang)
+  head
+    +head
+    block head
+
+  body
+    block startBody
+
+    .layout
+      main.content
+        block content
+
+    block endBody

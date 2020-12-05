@@ -1,0 +1,24 @@
+extends ../../layout/page
+
+//--------------------------------------------------//
+
+block vars
+  - var title = 'index'
+  - var description = 'index'
+
+//--------------------------------------------------//
+
+block head
+  +style('index')
+
+block startBody
+  +header()
+ 
+block endBody
+  +footer()
+  +script('main')
+  //- +script('index')
+
+//--------------------------------------------------//
+
+block content
